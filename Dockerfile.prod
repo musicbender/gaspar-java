@@ -1,0 +1,12 @@
+# build
+FROM maven:3.8.1-openjdk-16 AS MAVEN_BUILD
+WORKDIR /package
+COPY . .
+RUN mvn clean package
+
+# run
+FROM openjdk:16 AS FINAL
+WORKDIR /app
+COPY --from=MAVEN_BUILD /package/target/gaspar.jar gaspar.jar
+EXPOSE 8080
+ENTRYPOINT ["java","-jar","gaspar.jar"]

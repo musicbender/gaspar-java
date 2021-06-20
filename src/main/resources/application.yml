@@ -1,0 +1,13 @@
+spring:
+    profiles:
+        active: dev
+    main:
+        web-application-type: reactive
+    r2dbc:
+        name: ${env.GASPAR_DB_NAME}
+        url: ${env.GASPAR_DB_URI}
+        username: ${env.GASPAR_DB_USERNAME}
+        password: ${env.GASPAR_DB_PASSWORD}
+gaspar:
+    goats: ${env.GASPAR_GOATS_MOCK}
+

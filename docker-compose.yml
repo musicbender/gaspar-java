@@ -1,0 +1,24 @@
+version: "3"
+
+services:
+  gaspar:
+    container_name: gaspar-container
+    build: .
+    ports:
+      - 8080:8080
+    depends_on:
+      - postgres
+    env_file:
+      - .env.dev
+  postgres:
+    image: postgres
+    expose:
+      - 5432
+    ports:
+      - 5432:5432
+    volumes:
+      - /Users/pjacobs/docker/volumes/postgres
+    environment:
+      POSTGRES_DB: gaspar
+      POSTGRES_USER: gaspar
+      POSTGRES_PASSWORD: dev123
