@@ -57,4 +57,4 @@ hs_err_pid*
 
 # Env files
 .env.*
-.env
+.env.prod

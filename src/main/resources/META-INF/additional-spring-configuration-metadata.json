@@ -1,8 +1,4 @@
 {
   "properties": [
-    {
-      "name": "gaspar.goats",
-      "type": "java.lang.String",
-      "description": "Description for gaspar.goats."
-    }
+
   ] }
