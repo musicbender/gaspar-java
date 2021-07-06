@@ -17,13 +17,6 @@ public class BedSensorHandler {
 	@Autowired
 	private BedSensorService bedSensorService;
 
-	public Mono<ServerResponse> getTest(ServerRequest req) {
-		return ServerResponse
-				.ok()
-				.contentType(MediaType.APPLICATION_JSON)
-				.build();
-	}
-
 	public Mono<ServerResponse> getBedSensor(ServerRequest req) {
 		return defaultReadResponse(bedSensorService.getBedSensor(id(req)));
 	}
@@ -37,19 +30,14 @@ public class BedSensorHandler {
 	}
 
 	public Mono<ServerResponse> updateSensorStatus(ServerRequest req) {
-		Mono<BedSensor> mono = req.bodyToMono(BedSensor.class)
-				.doOnNext(b -> bedSensorService.updateSensorStatus(id(req), b.getIsActive()));
-		return defaultWriteResponse(mono);
+		Mono<Integer> mono = req.bodyToMono(BedSensor.class)
+				.flatMap(input -> bedSensorService.updateSensorStatus(id(req), input.getIsActive()));
+		return defaultUpdateResponse(mono);
 	}
 
 	public Mono<ServerResponse> createBedSensor(ServerRequest req) {
-		System.out.println("handler -- " + req);
 		Mono<BedSensor> mono = req.bodyToMono(BedSensor.class)
-				.flatMap(input -> {
-					System.out.println("--- " + input);
-					return bedSensorService.createBedSensor(input.getName());
-				});
-
+				.flatMap(input -> bedSensorService.createBedSensor(input.getName()));
 		return defaultWriteResponse(mono);
 	}
 
@@ -63,6 +51,12 @@ public class BedSensorHandler {
 				);
 	}
 
+	private static Mono<ServerResponse> defaultUpdateResponse(Publisher<Integer> updateInt) {
+		return ServerResponse
+				.ok()
+				.contentType(MediaType.APPLICATION_JSON)
+				.body(updateInt, Integer.class);
+	}
 
 	private static Mono<ServerResponse> defaultReadResponse(Publisher<BedSensor> bedSensor) {
 		return ServerResponse

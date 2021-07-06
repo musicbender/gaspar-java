@@ -31,7 +31,7 @@ public class BedSensorRouter {
 				.andRoute(GET(version() + BED_SENSOR_ENDPOINT_BY_ID).and(accept(MediaType.APPLICATION_JSON)), bedSensorHandler::getBedSensor)
 				.andRoute(GET(version() + BED_SENSOR_ENDPOINT_STATUS).and(accept(MediaType.APPLICATION_JSON)), bedSensorHandler::getBedSensorStatus)
 				.andRoute(PATCH(version() + BED_SENSOR_ENDPOINT_STATUS).and(accept(MediaType.APPLICATION_JSON)), bedSensorHandler::updateSensorStatus)
-				.andRoute(POST(this.version() + BED_SENSOR_ENDPOINT).and(accept(MediaType.APPLICATION_JSON)), bedSensorHandler::createBedSensor);
+				.andRoute(POST(version() + BED_SENSOR_ENDPOINT).and(accept(MediaType.APPLICATION_JSON)), bedSensorHandler::createBedSensor);
 	}
 
 	private String version() {

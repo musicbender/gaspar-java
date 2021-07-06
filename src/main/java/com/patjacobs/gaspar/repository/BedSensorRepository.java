@@ -10,6 +10,6 @@ public interface BedSensorRepository extends ReactiveCrudRepository<BedSensor, I
 	@Query("SELECT is_active FROM bed_sensors WHERE id = :id")
 	Mono<BedSensor> getActivityById(Integer id);
 
-	@Query("UPDATE bed_sensor SET is_active = :isActive WHERE id= :id")
+	@Query("UPDATE bed_sensors SET is_active = :isActive WHERE id = :id")
 	Mono<Integer> updateActivityById(Integer id, Boolean isActive);
 }

@@ -33,8 +33,8 @@ public class BedSensorService {
 	}
 
 	public Mono<BedSensor> createBedSensor(String name) {
-		System.out.println("service -- " + name);
-		BedSensor newSensor = BedSensor.builder().name("test_sensor_x").build();
-		return bedSensorRepository.save(newSensor);
+		return bedSensorRepository.save(
+				BedSensor.builder().name(name).build()
+		);
 	}
 }
