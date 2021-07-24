@@ -24,7 +24,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
       - name: Get the project version
-        uses: avides/actions-project-version-check@latest
+        uses: avides/actions-project-version-check@v1.2.0
         id: project_version_check
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
