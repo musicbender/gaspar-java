@@ -2,10 +2,10 @@
 FROM maven:3.8.1-openjdk-16 AS MAVEN_BUILD
 WORKDIR /package
 COPY . .
-RUN mvn clean package
+RUN mvn clean package -Dmaven.test.skip=true
 
 # run
-FROM openjdk:16 AS FINAL
+FROM arm32v7/adoptopenjdk:16-hotspot-focal
 WORKDIR /app
 COPY --from=MAVEN_BUILD /package/target/gaspar.jar gaspar.jar
 EXPOSE 8080

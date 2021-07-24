@@ -1,0 +1,27 @@
+version: "3"
+
+services:
+  cloudsql-proxy:
+    image: outofcoffee/cloudsql-gce-proxy:1.16-arm32v7
+    container_name: gaspar_psql
+    ports:
+      - 5432:5432
+    command:
+      - "/cloud_sql_proxy"
+      - "-dir=/cloudsql"
+      - "-instances=${GASPAR_CLOUDSQL_CONNECTION_NAME}"
+      - "-credential_file=/tmp/keys/gaspar-credentials..json"
+    user: root
+    volumes:
+      - ${GAPAR_GCP_KEY_PATH}:/tmp/keys/gaspar-credentials.json:ro
+      - cloudsql:/cloudsql
+  gaspar:
+    container_name: gaspar_app
+    image: ${GASPAR_IMAGE_URL}-${DOCKER_IMAGE_TAG:latest}
+    depends_on:
+      - cloudsql-proxy
+    volumes:
+      - cloudsql:/cloudsql
+
+  volumes:
+    cloudsql:

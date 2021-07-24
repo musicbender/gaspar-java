@@ -18,11 +18,11 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - 8080:8080
-    depends_on:
-      - postgres
+      - ${GASPAR_PORT}:8080
     env_file:
       - .env
+    depends_on:
+      - postgres
 
 volumes:
   postgres_data:

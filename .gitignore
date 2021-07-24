@@ -56,5 +56,5 @@ build/
 hs_err_pid*
 
 # Env files
-.env.*
-.env.prod
+.env
+.deployment/raspi/.env
