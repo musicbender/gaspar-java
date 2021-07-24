@@ -9,7 +9,7 @@
 	</parent>
 	<groupId>com.patjacobs</groupId>
 	<artifactId>gaspar</artifactId>
-	<version>develop-SNAPSHOT</version>
+	<version>0.0.1</version>
 	<name>gaspar</name>
 	<description>My home automation service</description>
 	<properties>
