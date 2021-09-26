@@ -5,7 +5,7 @@ COPY . .
 RUN mvn clean package -Dmaven.test.skip=true
 
 # run
-FROM arm32v7/adoptopenjdk:16-hotspot-focal
+FROM arm64v8/openjdk:16
 WORKDIR /app
 COPY --from=MAVEN_BUILD /package/target/gaspar.jar gaspar.jar
 EXPOSE 8080

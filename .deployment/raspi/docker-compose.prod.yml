@@ -2,7 +2,7 @@ version: "3"
 
 services:
   cloudsql-proxy:
-    image: outofcoffee/cloudsql-gce-proxy:1.16-arm32v7
+    image: gcr.io/cloudsql-docker/gce-proxy:1.16
     container_name: gaspar_psql
     ports:
       - 5432:5432
@@ -10,18 +10,18 @@ services:
       - "/cloud_sql_proxy"
       - "-dir=/cloudsql"
       - "-instances=${GASPAR_CLOUDSQL_CONNECTION_NAME}"
-      - "-credential_file=/tmp/keys/gaspar-credentials..json"
+      - "-credential_file=/tmp/keys/extreme-braid-250106-3b56fa9812f3.json"
     user: root
     volumes:
-      - ${GAPAR_GCP_KEY_PATH}:/tmp/keys/gaspar-credentials.json:ro
+      - ${GASPAR_GCP_KEY_PATH}:/tmp/keys/extreme-braid-250106-3b56fa9812f3.json:ro
       - cloudsql:/cloudsql
   gaspar:
     container_name: gaspar_app
-    image: ${GASPAR_IMAGE_URL}-${DOCKER_IMAGE_TAG:latest}
+    image: ${GASPAR_IMAGE_URL}:${GASPAR_IMAGE_TAG}
     depends_on:
       - cloudsql-proxy
     volumes:
       - cloudsql:/cloudsql
 
-  volumes:
-    cloudsql:
+volumes:
+  cloudsql:
