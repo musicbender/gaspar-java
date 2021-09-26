@@ -5,7 +5,7 @@ COPY . .
 RUN mvn clean package -Dmaven.test.skip=true
 
 # run
-FROM arm64v8/openjdk:16
+FROM eclipse-temurin:16.0.2_7-jdk-focal
 WORKDIR /app
 COPY --from=MAVEN_BUILD /package/target/gaspar.jar gaspar.jar
 EXPOSE 8080
